@@ -1,12 +1,8 @@
 //BIBLIOTEKI
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
 #include <OneWire.h>
 
 // IDENTYFIKATORY
-//LCD 
-LiquidCrystal_I2C lcd(0x27,16,2);
-OneWire oneWire(A1);
 
 // PINY LED
 #define LED_RED 6
@@ -78,18 +74,12 @@ void changeCurrentLed() {
   }
 }
 
-// funkcja wylaczajaca ekran lcd
-void turnOffLcd() {
-  lcd.clear();
-  lcd.noBacklight();
-}
 // FUNKCJE ARDUINO
 
 void setup() {
   // inicjalizacja diod LED i przyciskow
   initRgb();
   initButtons();
-  turnOffLcd();
 
   // wyswietlenie poczatkowego stanu diod LED
   digitalWrite(ledPins[currentLed], HIGH);
