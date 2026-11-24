@@ -3,7 +3,9 @@
 // constructor
 Stopwatch::Stopwatch() {
     isRunning = false;
+    miliSeconds = 0;
     seconds = 0;
+    minutes=0;
     lastTickTime = 0;
 }
 
@@ -24,26 +26,53 @@ void Stopwatch::stop() {
 
 // method to reset the stopwatch
 void Stopwatch::reset() {
+    miliSeconds = 0;
     seconds = 0;
+    minutes = 0;
 }
 
 // method to update the stopwatch
 bool Stopwatch::update() {
     if (isRunning) {
-        // if one second has passed 
-        if (millis() - lastTickTime >= 1000) {
-            seconds++;
-            lastTickTime += 1000; // update last tick time
-            return true; // return true to indicate that a second has passed
+        bool hasChanged = false;
+
+        // if 100 miliseconds has passed change attributes
+        while (millis() - lastTickTime >= 10) {
+            miliSeconds += 1;
+
+            if (miliSeconds >= 100) {
+                seconds++;
+                miliSeconds -= 100;
+
+                if (seconds >= 60) {
+                    minutes++;
+                    seconds = 0;
+                }
+            }
+
+            lastTickTime += 10;
+            hasChanged = true;
         }
+
+        return hasChanged;
     }
 
     return false; // return false to indicate that second has not passed
 }
 
+// getter for miliseconds
+uint32_t Stopwatch::getMiliseconds() const {
+    return miliSeconds;
+}
+
 // getter for seconds
 uint32_t Stopwatch::getSeconds() const {
     return seconds;
+}
+
+// getter for minutes
+uint32_t Stopwatch::getMinutes() const {
+    return minutes;
 }
 
 // getter for isRunning

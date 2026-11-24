@@ -16,14 +16,11 @@ const uint32_t PLOTTER_UPDATE_INTERVAL = 50; // update plotter every 50 ms
 
 // helper functions
 void printPlotterData(uint16_t rawValue, int voltageMicroVolts) {
-  Serial.print("ADC_Value: ");
+  Serial.print("ADC_Value:");
   Serial.print(rawValue);
-
-  // print comma to separate values for serial plotter
   Serial.print(",");
-
-  Serial.print("Voltage_mV: ");
-  Serial.println(voltageMicroVolts);
+  Serial.print("Voltage_mV:");
+  Serial.println(voltageMilliVolts);
 }
 
 void setup() {

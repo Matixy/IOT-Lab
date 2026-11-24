@@ -31,9 +31,7 @@ void printAdcToLcd(uint16_t adcValue) {
   lcd.print(adcValue);
   
   // clear any remaining characters from previous values
-  if (adcValue < 1000) lcd.print(" "); 
-  if (adcValue < 100)  lcd.print(" ");
-  if (adcValue < 10)   lcd.print(" ");
+  lcd.print("    "); 
 }
 
 void printVoltageToLcd(float voltage) {

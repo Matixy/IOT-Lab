@@ -20,12 +20,32 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD instance with I2C address 0x27 and si
 void updateDisplay() {
     lcd.setCursor(0, 1);
     lcd.print("Czas: ");
-    lcd.print(stopwatch.getSeconds());
 
-    lcd.print(" s      "); // clear any remaining characters on the line
+    uint32_t minutes = stopwatch.getMinutes();
+    uint32_t seconds = stopwatch.getSeconds();
+    uint32_t miliSeconds = stopwatch.getMiliseconds();
+
+    if (minutes < 10) {
+        lcd.print("0");
+    }
+    lcd.print(minutes);
+    
+    lcd.print(":");
+
+    if (seconds < 10) {
+        lcd.print("0");
+    }
+    lcd.print(seconds);
+
+    lcd.print(":");
+
+    if (miliSeconds < 10) {
+        lcd.print("0");
+    }
+    lcd.print(miliSeconds);
 
     // display stopwatch state
-    lcd.setCursor(14, 1);
+    lcd.setCursor(14, 0);
     if (stopwatch.getIsRunning()) {
         lcd.print(" >");
     } else {
